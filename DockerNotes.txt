@@ -1,0 +1,44 @@
+Docker Networking:
+------------------
+Basics:
+1) Three pillars of Docker networking
+- CNM(Container Network Model):
+	DNA of Docker networking
+	CNM is a specification document or design documentation for Docker Networking. Reference link https://github.com/docker/libnetwork/docs/
+	Fair to say, libnetwork and drivers draw things from CNM
+	
+	CNM defines 3 major constructs,
+	1) Sandbox (just the namespace in linux, other term in other OS)
+	   - Isolated space in OS where we can create the fullnetwork stack like ipconfig, DNS, routing tables etc.
+		2) Endpoints
+		- These are Network interfaces like etho, eth1 etc
+	3) Network
+		- Network is a collection/grouping of endpoints
+- libnetwork
+	Libnetwork is the real implementation of CNM by Docker INC. written in Go/GoLang.
+	Central place for all Docker Networking logic, API, UX etc.
+
+- drivers
+	Network specific details.
+	Each network type has its own driver. 
+
+
+
+Use Cases & Drivers:
+	1) Single Host Networking
+		Default single host network is bridge network, it comes with bridge driver.
+		This network will be available only on the host server we create it.
+
+	2) Multi Host Networking
+		Docker provides out of the box multi host network called overlay 
+
+
+Network Services:
+
+
+
+
+
+Network Scope:
+1) local
+2) Swarm mode
