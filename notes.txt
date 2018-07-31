@@ -1,0 +1,57 @@
+operating system resources
+- process namespace
+- network stack
+- stogare namespace
+
+======================================
+Docker Swarm:
+- A collection of docker engines in known as swarm
+- And a docker engine running in each host is said to be running in swarm mode
+- swarm contains manager nodes(acts also as a worker) and worker nodes
+- service is the instruction we give to docker swarm to perform some action. Any action on the swarm mode is done as a service using the keyword 'service' in the docker command
+- task is the command given by master to worker node to execute some action
+
+docker swarm setup:
+username: Ubuntu
+password: root1234
+
+1) Manager nodes
+ - khadernode1.docker.com
+   192.168.0.121
+ - khadernode2.docker.com
+   192.168.0.122
+ - khadernode3.docker.com
+   192.168.0.123
+   
+2) Worker nodes
+ - khadernode4.docker.com
+   192.168.0.124
+ - khadernode5.docker.com
+   192.168.0.125
+ - khadernode6.docker.com
+   192.168.0.126
+   
+ hostfile config:
+192.168.0.121 khadernode1.docker.com
+192.168.0.122 khadernode2.docker.com
+192.168.0.123 khadernode3.docker.com
+192.168.0.124 khadernode4.docker.com
+192.168.0.125 khadernode5.docker.com
+192.168.0.126 khadernode6.docker.com
+
+
+- Initialize swarm
+ubuntu@khadernode1:~$ docker swarm init --advertise-addr 192.168.0.121:2377 --listen-addr 192.168.0.121:2237
+output:
+Swarm initialized: current node (q7pm4zrrd4oe5sd9lnj8y2chk) is now a manager.
+To add a worker to this swarm, run the following command:
+    docker swarm join --token SWMTKN-1-6acnrf6z5w16fj6hau9zn38cmrzo9hf03iuqdme2jfos8uh9gu-4ma8k0xcujjsi677gxfdr18sf 192.168.0.121:2377
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+
+- To list the details of manager and worker nodes
+docker node ls
+
+- To join a node as  a worker or manager to swarm, run the below command on leader manager node to get exact command that needs to be executed on the specific node(to be added as worker/manager)
+docker swarm join-token manager
+docker swarm join-token worker
+
